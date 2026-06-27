@@ -188,8 +188,8 @@ inline Memory::Memory(const ClientPatternFinder& clientPatternFinder, const Engi
     const DynamicLibrary gameOverlayRenderer{ "gameoverlayrenderer.dll" };
 
     PatternNotFoundHandler patternNotFoundHandler;
-    present = PatternFinder{ gameOverlayRenderer.getCodeSection().raw(), patternNotFoundHandler}("8B 4D ? A1 ? ? ? ? 51 FF"_pat).add(4).as<std::uintptr_t>();
-    reset = PatternFinder{ gameOverlayRenderer.getCodeSection().raw(), patternNotFoundHandler }("E8 ? ? ? ? A1 ? ? ? ? 57 53 C7"_pat).add(6).as<std::uintptr_t>();
+    present = PatternFinder{ gameOverlayRenderer.getCodeSection().raw(), patternNotFoundHandler}("68 ? ? ? ? 6A 01 68 ? ? ? ? 68 ? ? ? ? FF 76 44 E8 ? ? ? ? 83 C4 14"_pat).add(8).as<std::uintptr_t>();
+    reset = PatternFinder{ gameOverlayRenderer.getCodeSection().raw(), patternNotFoundHandler }("68 ? ? ? ? 6A 01 68 ? ? ? ? 68 ? ? ? ? FF 76 40 E8 ? ? ? ? 83 C4 14"_pat).add(8).as<std::uintptr_t>();
 
     clientMode = **reinterpret_cast<csgo::ClientMode***>((*reinterpret_cast<uintptr_t**>(clientInterface))[10] + 5);
     input = *reinterpret_cast<csgo::Input**>((*reinterpret_cast<uintptr_t**>(clientInterface))[16] + 1);
